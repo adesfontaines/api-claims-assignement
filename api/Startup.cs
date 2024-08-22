@@ -103,7 +103,7 @@ namespace Api.Claims
             {
                 endpoints.MapControllers();
             });
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
