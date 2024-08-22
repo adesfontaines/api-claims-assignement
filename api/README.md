@@ -20,6 +20,6 @@ build.bat
 
 ```
 cd src/Api.Claims
-docker build -t io.swagger .
-docker run -p 5000:5000 io.swagger
+docker build -t api.claims .
+docker run -p 5000:5000 api.claims
 ```
