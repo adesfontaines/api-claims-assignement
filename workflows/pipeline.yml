@@ -51,7 +51,7 @@ jobs:
       with:
         dotnet-version: '8.0.x'
     - name: Build and publish
-      run: dotnet publish -c Release -o ./publish
+      run: dotnet publish api/api.claims.csproj -c Release -o ./publish
     - name: Build Docker image
       run: docker build -t Api.Claims .
     # - name: Push Docker image
