@@ -17,7 +17,6 @@ namespace Api.Claims.Models
         /// </summary>
         /// <value>The unique ID of the claim.</value>
         [Required]
-
         [DataMember(Name="id")]
         public int Id { get; set; }
 
@@ -26,16 +25,14 @@ namespace Api.Claims.Models
         /// </summary>
         /// <value>The name of the claim.</value>
         [Required]
-
-        [DataMember(Name="claimName")]
-        public string ClaimName { get; set; }
+        [DataMember(Name="name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Whether the claim has been verified.
         /// </summary>
         /// <value>Whether the claim has been verified.</value>
         [Required]
-
         [DataMember(Name="verified")]
         public bool? Verified { get; set; }
 
@@ -48,7 +45,7 @@ namespace Api.Claims.Models
             var sb = new StringBuilder();
             sb.Append("class Claim {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  ClaimName: ").Append(ClaimName).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Verified: ").Append(Verified).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -91,9 +88,9 @@ namespace Api.Claims.Models
                     Id.Equals(other.Id)
                 ) && 
                 (
-                    ClaimName == other.ClaimName ||
-                    ClaimName != null &&
-                    ClaimName.Equals(other.ClaimName)
+                    Name == other.Name ||
+                    Name != null &&
+                    Name.Equals(other.Name)
                 ) && 
                 (
                     Verified == other.Verified ||
@@ -112,8 +109,8 @@ namespace Api.Claims.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (ClaimName != null)
-                    hashCode = hashCode * 59 + ClaimName.GetHashCode();
+                    if (Name != null)
+                    hashCode = hashCode * 59 + Name.GetHashCode();
                     if (Verified != null)
                     hashCode = hashCode * 59 + Verified.GetHashCode();
                 return hashCode;

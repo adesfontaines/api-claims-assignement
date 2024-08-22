@@ -9,7 +9,7 @@ using Api.Claims.Models;
 namespace Api.Claims.Controllers
 {
     /// <summary>
-    /// 
+    /// ClaimsApiController
     /// </summary>
     [ApiController]
     public class ClaimsApiController : ControllerBase
@@ -28,25 +28,18 @@ namespace Api.Claims.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Claim), description: "The claim was found.")]
         public virtual IActionResult ClaimsIdGet([FromRoute][Required]int? id)
         { 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Claim));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404);
-            string exampleJson = null;
-            exampleJson = "{\n  \"claimName\" : \"claimName\",\n  \"verified\" : true,\n  \"id\" : 0\n}";
+            string exampleJson = "{\n  \"name\" : \"claim-name\",\n  \"verified\" : true,\n  \"id\" : 0\n}";
             
                         var example = exampleJson != null
                         ? JsonConvert.DeserializeObject<Claim>(exampleJson)
-                        : default(Claim);            //TODO: Change the data returned
-            return new ObjectResult(example);
+                        : default(Claim);
+            return new OkObjectResult(example);
         }
 
         /// <summary>
         /// Submit a batch of claims
         /// </summary>
         /// <remarks>Submits a batch of claims, checks for duplicates, and stores new claims in the database. Returns a list of already registered claims if any.</remarks>
-        /// <param name="body"></param>
         /// <response code="200">Claims processed successfully.</response>
         [HttpPost]
         [Route("/api/claims")]
@@ -55,7 +48,7 @@ namespace Api.Claims.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(InlineResponse200), description: "Claims processed successfully.")]
         public virtual IActionResult ClaimsPost([FromBody]List<Claim> claims)
         { 
-            List<Claim> uniqueClaims = new List<Claim>();
+            List<Claim> uniqueClaims    = new List<Claim>();
             List<Claim> duplicateClaims = new List<Claim>();
 
             HashSet<int> seenIds = new HashSet<int>();
@@ -72,12 +65,12 @@ namespace Api.Claims.Controllers
             }
 
             // TODO Add to queue
-            var response = new 
+            var response = new ClaimsPostResponse()
             {
-                duplicatedClaims = duplicateClaims,
+                DuplicatedClaims = duplicateClaims,
             };
 
-            return new ObjectResult(response);
+            return Ok(response);
         }
     }
 }

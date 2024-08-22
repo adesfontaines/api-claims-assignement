@@ -3,7 +3,7 @@ name: CI/CD Pipeline for .NET Core Claims API
 on:
   push:
     branches:
-      - main  # Trigger on pushes to the main branch
+      - main
 
 jobs:
   build_and_test:
@@ -15,20 +15,13 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0.x'  # Or your desired .NET version
+        dotnet-version: '8.0.x'
     - name: Restore dependencies
       run: dotnet restore api/api.claims.csproj
     - name: Build
       run: dotnet build api/api.claims.csproj --configuration Release --no-restore
     - name: Test with Coverage
       run: dotnet test api/api.claims.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --no-build --verbosity normal
-
-    - name: Generate Coverage Report
-      uses: danielpalme/ReportGenerator-GitHub-Action@5.3.8
-      with:
-        reports: '**/coverage.cobertura.xml'
-        targetdir: 'coverage-report'
-        reporttypes: 'HtmlInline_AzurePipelines;Cobertura'
 
     - name: Check Coverage Threshold
       if: ${{ always() }}  # Always run, even if previous steps fail
