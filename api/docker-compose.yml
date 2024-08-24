@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    ports:
+      - "80:5000"  # Map host port 80 to container port 5000
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development  # Set environment for API
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      start_period: 5s
+      retries: 3
+    volumes:
+      - dataprotection:/root/.aspnet/DataProtection-Keys
+
+  db:
+    image: postgres:latest
+    
+    environment:
+      POSTGRES_USER: adesfontaines
+      POSTGRES_PASSWORD: SHIFT_ASSIGNEMENT
+      POSTGRES_DB: claims
+    ports:
+      - "5432:5432"  # Expose the PostgreSQL port (optional for local development)
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U adesfontaines -d claims"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  pgdata:
+  dataprotection:

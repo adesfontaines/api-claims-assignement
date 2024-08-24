@@ -11,7 +11,6 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Api.Claims.Filters;
 
-
 namespace Api.Claims
 {
     /// <summary>
@@ -86,20 +85,18 @@ namespace Api.Claims
         {
             app.UseRouting();
 
-            //TODO: Uncomment this if you need wwwroot folder
-            // app.UseStaticFiles();
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                //TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
                 c.SwaggerEndpoint("/swagger/1.0.0/swagger.json", "Claims API");
             });
 
             //TODO: Use Https Redirection
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints =>
             {
