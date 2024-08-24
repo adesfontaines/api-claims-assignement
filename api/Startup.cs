@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore; 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,7 +11,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Api.Claims.Filters;
-
+using Api.Claims.Models;
 namespace Api.Claims
 {
     /// <summary>
@@ -53,6 +54,13 @@ namespace Api.Claims
                 })
                 .AddXmlSerializerFormatters();
 
+            services.AddDbContext<ClaimsDBContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddLogging(builder =>
+            {
+                builder.AddConsole(); // Log to the console
+            });
 
             services
                 .AddSwaggerGen(c =>
@@ -66,9 +74,6 @@ namespace Api.Claims
                     c.IncludeXmlComments($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{_hostingEnv.ApplicationName}.xml");
                     // Sets the basePath property in the Swagger document generated
                     c.DocumentFilter<BasePathFilter>("/api");
-
-                    // Include DataAnnotation attributes on Controller Action parameters as Swagger validation rules (e.g required, pattern, ..)
-                    // Use [ValidateModelState] on Actions to actually validate it in C# as well!
                     c.OperationFilter<GeneratePathParamsValidationFilter>();
                 });
 
@@ -113,6 +118,9 @@ namespace Api.Claims
                 app.UseHsts();
             }
 
+            var logger = loggerFactory.CreateLogger<Startup>();
+            logger.LogInformation("Application starting up..."); 
+            
             app.UseHealthChecks("/health");
         }
     }

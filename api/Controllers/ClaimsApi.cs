@@ -2,9 +2,12 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging; 
 using System.ComponentModel.DataAnnotations;
 using Api.Claims.Attributes;
 using Api.Claims.Models;
+using Npgsql;
 
 namespace Api.Claims.Controllers
 {
@@ -13,7 +16,16 @@ namespace Api.Claims.Controllers
     /// </summary>
     [ApiController]
     public class ClaimsApiController : ControllerBase
-    { 
+    {
+        private readonly ClaimsDBContext _dbContext;
+        private readonly ILogger<ClaimsApiController> _logger; // Inject the logger
+
+        public ClaimsApiController(ClaimsDBContext dbContext, ILogger<ClaimsApiController> logger)
+        {
+            _dbContext = dbContext;
+            _logger = logger;
+        }
+
         /// <summary>
         /// Get a claim by ID
         /// </summary>
@@ -28,12 +40,14 @@ namespace Api.Claims.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Claim), description: "The claim was found.")]
         public virtual IActionResult ClaimsIdGet([FromRoute][Required]int? id)
         { 
-            string exampleJson = "{\n  \"name\" : \"claim-name\",\n  \"verified\" : true,\n  \"id\" : 0\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Claim>(exampleJson)
-                        : default(Claim);
-            return new OkObjectResult(example);
+            var claim = _dbContext.Claims.Find(id);
+
+            if (claim == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(claim); 
         }
 
         /// <summary>
@@ -64,7 +78,20 @@ namespace Api.Claims.Controllers
                 }
             }
 
-            // TODO Add to queue
+            foreach (var claim in uniqueClaims)
+            {
+                try
+                {
+                    _dbContext.Claims.Add(claim);
+                    _dbContext.SaveChanges();
+                }
+                catch (DbUpdateException ex)
+                {
+                    _logger.LogError(ex, "Error saving claim with ID {ClaimId}. Exception: {ExceptionMessage}", claim.Id, ex.Message);
+                    duplicateClaims.Add(claim);
+                }
+            }
+
             var response = new ClaimsPostResponse()
             {
                 DuplicatedClaims = duplicateClaims,
