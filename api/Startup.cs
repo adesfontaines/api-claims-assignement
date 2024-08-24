@@ -72,6 +72,8 @@ namespace Api.Claims
                     // Use [ValidateModelState] on Actions to actually validate it in C# as well!
                     c.OperationFilter<GeneratePathParamsValidationFilter>();
                 });
+
+            services.AddHealthChecks();
         }
 
         /// <summary>
@@ -113,6 +115,8 @@ namespace Api.Claims
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseHealthChecks("/health");
         }
     }
 }
