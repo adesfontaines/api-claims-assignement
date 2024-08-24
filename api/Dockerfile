@@ -17,13 +17,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-# Install prerequisites
-RUN apt-get update && apt-get install -y \
-curl
-CMD /bin/bash
-
-# Health check using HTTP on the default port
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:5000/health || exit 1
-
 ENTRYPOINT ["dotnet", "Api.Claims.dll"] 

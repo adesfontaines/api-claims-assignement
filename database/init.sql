@@ -15,5 +15,4 @@ VALUES
     ('Default Claim 7', false),
     ('Default Claim 8', false),
     ('Default Claim 9', false),
-    ('Default Claim 10', false)
-ON CONFLICT (name) DO NOTHING; 
+    ('Default Claim 10', false);
