@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 10s 
+
+scrape_configs:
+  - job_name: 'api-claims'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['host.docker.internal:80']  # Scrape metrics from the 'api' service on port 80

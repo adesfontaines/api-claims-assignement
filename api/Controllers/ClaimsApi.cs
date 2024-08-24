@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging; 
 using System.ComponentModel.DataAnnotations;
+using Prometheus;
 using Api.Claims.Attributes;
 using Api.Claims.Models;
 using Npgsql;
@@ -18,7 +19,16 @@ namespace Api.Claims.Controllers
     public class ClaimsApiController : ControllerBase
     {
         private readonly ClaimsDBContext _dbContext;
-        private readonly ILogger<ClaimsApiController> _logger; // Inject the logger
+        private readonly ILogger<ClaimsApiController> _logger;
+
+ 
+        private static readonly Histogram ClaimCountPerRequestHistogram = Metrics.CreateHistogram(
+            "claim_count_per_request",
+            "Number of claims sent per request",
+            new HistogramConfiguration
+            {
+                LabelNames = new[] { "endpoint" }
+            });
 
         public ClaimsApiController(ClaimsDBContext dbContext, ILogger<ClaimsApiController> logger)
         {
@@ -62,10 +72,14 @@ namespace Api.Claims.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(InlineResponse200), description: "Claims processed successfully.")]
         public virtual IActionResult ClaimsPost([FromBody]List<Claim> claims)
         { 
+            ClaimCountPerRequestHistogram.WithLabels("/api/claims").Observe(claims.Count);
+
             List<Claim> uniqueClaims    = new List<Claim>();
             List<Claim> duplicateClaims = new List<Claim>();
 
             HashSet<int> seenIds = new HashSet<int>();
+            
+
             foreach (var claim in claims)
             {
                 if (seenIds.Add(claim.Id)) 

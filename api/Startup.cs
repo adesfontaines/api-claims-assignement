@@ -12,6 +12,8 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Api.Claims.Filters;
 using Api.Claims.Models;
+using Prometheus;
+
 namespace Api.Claims
 {
     /// <summary>
@@ -100,11 +102,16 @@ namespace Api.Claims
                 c.SwaggerEndpoint("/swagger/1.0.0/swagger.json", "Claims API");
             });
 
+            // Use the Prometheus middleware
+            app.UseMetricServer();
+            app.UseHttpMetrics(); // Collect metrics for HTTP requests
+            
             //TODO: Use Https Redirection
             // app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapMetrics();
                 endpoints.MapControllers();
             });
             
@@ -120,7 +127,7 @@ namespace Api.Claims
 
             var logger = loggerFactory.CreateLogger<Startup>();
             logger.LogInformation("Application starting up..."); 
-            
+
             app.UseHealthChecks("/health");
         }
     }

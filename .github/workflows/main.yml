@@ -1,9 +1,13 @@
-name: CI/CD Pipeline for .NET Core Claims API
+name: Build and deploy container to Azure
+
+env:
+  AZURE_WEBAPP_NAME: api-claims   # set this to your application's name
 
 on:
   push:
-    branches:
-      - main
+    branches: 
+      - main 
+      - release/*  # Added this line
 
 jobs:
   build_and_test:
@@ -16,10 +20,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
-    - name: Restore dependencies
-      run: dotnet restore api/api.claims.csproj
-    - name: Build
-      run: dotnet build api/api.claims.csproj --configuration Release --no-restore
     - name: Test with Coverage
       run: dotnet test tests/api.tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./Cobertura.xml'--no-build --verbosity normal
 
@@ -33,29 +33,13 @@ jobs:
           exit 1
         fi
         echo "Code coverage ($actual%) meets the threshold."
-
   package_and_deploy:
     name: Package and Deploy
     runs-on: ubuntu-latest
     needs: build_and_test
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
-    - name: Build and publish
-      run: dotnet publish api/api.claims.csproj -c Release -o ./publish
-    - name: Build Docker image
-      run: docker build -t api.claims .
-    # - name: Push Docker image
-    #   # You'll need to configure secrets for your container registry credentials
-    #   run: docker push your-image-name
-    # - name: Deploy to Kubernetes
-    #   # Use actions to interact with your Kubernetes cluster and deploy the image
-    #   # You'll need to configure secrets for your Kubernetes cluster access
-    #   # Example using kubectl:
-    #   run: |
-    #     kubectl apply -f deployment.yaml
-    #     kubectl rollout restart deployment your-deployment-name
+    - name: Set up Docker Compose
+      uses: docker/setup-compose-v2@v2
+    - name: Build and run services
+      run: docker compose up -d --build
