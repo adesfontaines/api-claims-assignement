@@ -13,12 +13,14 @@ using Newtonsoft.Json.Serialization;
 using Api.Claims.Filters;
 using Api.Claims.Models;
 using Prometheus;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Api.Claims
 {
     /// <summary>
     /// Startup
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         private readonly IWebHostEnvironment _hostingEnv;

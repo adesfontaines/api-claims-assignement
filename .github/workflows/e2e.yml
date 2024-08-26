@@ -8,7 +8,6 @@ on:
 
 jobs:
   test:
-    name: Build & Test
     runs-on: ubuntu-latest
 
     steps:
@@ -20,16 +19,15 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Test with Coverage
-      run: dotnet test tests/api.tests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='./TestResults.xml'
+      run: dotnet test tests/api.tests.csproj --verbosity minimal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='./TestResults.xml'
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
-        files: ./TestResults.xml
+        files: ./tests/TestResults.xml
         token: ${{ secrets.CODECOV_TOKEN }}
         flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
+        name: codecov-api-claims
 
     - name: Test with the dotnet CLI
       run: dotnet test tests/api.tests.csproj

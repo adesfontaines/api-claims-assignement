@@ -2,13 +2,11 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Newtonsoft.Json;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging; 
+using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
 using Prometheus;
-using Api.Claims.Attributes;
 using Api.Claims.Models;
-using Npgsql;
+using System;
 
 namespace Api.Claims.Controllers
 {
@@ -45,7 +43,6 @@ namespace Api.Claims.Controllers
         /// <response code="404">The claim was not found.</response>
         [HttpGet]
         [Route("/api/claims/{id}")]
-        [ValidateModelState]
         [SwaggerOperation("ClaimsIdGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(Claim), description: "The claim was found.")]
         public virtual IActionResult ClaimsIdGet([FromRoute][Required]int? id)
@@ -67,9 +64,8 @@ namespace Api.Claims.Controllers
         /// <response code="200">Claims processed successfully.</response>
         [HttpPost]
         [Route("/api/claims")]
-        [ValidateModelState]
         [SwaggerOperation("ClaimsPost")]
-        [SwaggerResponse(statusCode: 200, type: typeof(InlineResponse200), description: "Claims processed successfully.")]
+        [SwaggerResponse(statusCode: 200, type: typeof(ClaimsPostResponse), description: "Claims processed successfully.")]
         public virtual IActionResult ClaimsPost([FromBody]List<Claim> claims)
         { 
             ClaimCountPerRequestHistogram.WithLabels("/api/claims").Observe(claims.Count);
@@ -99,7 +95,7 @@ namespace Api.Claims.Controllers
                     _dbContext.Claims.Add(claim);
                     _dbContext.SaveChanges();
                 }
-                catch (DbUpdateException ex)
+                catch(Exception ex)
                 {
                     _logger.LogError(ex, "Error saving claim with ID {ClaimId}. Exception: {ExceptionMessage}", claim.Id, ex.Message);
                     duplicateClaims.Add(claim);
