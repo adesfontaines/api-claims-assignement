@@ -135,3 +135,4 @@ _NCrunch*
 api/.env
 tests/TestResults.xml
 CoverageReport
+tests/lcov.info
