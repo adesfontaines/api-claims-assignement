@@ -20,7 +20,7 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Test with Coverage
-      run: dotnet test tests/api.tests.csproj --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='./TestResults.xml'
+      run: dotnet test tests/api.tests.csproj --verbosity minimal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='./TestResults.xml'
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
