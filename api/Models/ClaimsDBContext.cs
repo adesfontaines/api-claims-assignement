@@ -1,8 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 namespace Api.Claims.Models
 {
+    /// <summary>
+    /// Claims DataBase Context
+    /// </summary>
+    /// <param name="options"></param>
     public class ClaimsDBContext(DbContextOptions<ClaimsDBContext> options) : DbContext(options) 
     {
+        /// <summary>
+        /// Claims Table
+        /// </summary>
         public DbSet<Claim> Claims { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

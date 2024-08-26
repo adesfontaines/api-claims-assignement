@@ -3,12 +3,15 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Diagnostics.CodeAnalysis;
+
 
 namespace Api.Claims.Filters
 {
     /// <summary>
     /// Path Parameter Validation Rules Filter
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class GeneratePathParamsValidationFilter : IOperationFilter
     {
         /// <summary>
