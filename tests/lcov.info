@@ -1,0 +1,360 @@
+SF:c:\Users\adesfontaines\source\private\api-claims-assignement\api\Program.cs
+FN:15,System.Void Api.Claims.Program::Main(System.String[])
+FNDA:0,System.Void Api.Claims.Program::Main(System.String[])
+DA:16,0
+DA:17,0
+DA:18,0
+FN:25,Microsoft.AspNetCore.Hosting.IWebHostBuilder Api.Claims.Program::CreateWebHostBuilder(System.String[])
+FNDA:0,Microsoft.AspNetCore.Hosting.IWebHostBuilder Api.Claims.Program::CreateWebHostBuilder(System.String[])
+DA:26,0
+DA:27,0
+LF:5
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:c:\Users\adesfontaines\source\private\api-claims-assignement\api\Startup.cs
+FN:25,Microsoft.Extensions.Configuration.IConfiguration Api.Claims.Startup::get_Configuration()
+FNDA:0,Microsoft.Extensions.Configuration.IConfiguration Api.Claims.Startup::get_Configuration()
+DA:26,0
+FN:43,System.Void Api.Claims.Startup::ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+FNDA:0,System.Void Api.Claims.Startup::ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+DA:44,0
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:59,0
+DA:60,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:76,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:81,0
+DA:82,0
+FN:90,System.Void Api.Claims.Startup::Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Logging.ILoggerFactory)
+FNDA:0,System.Void Api.Claims.Startup::Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Logging.ILoggerFactory)
+DA:91,0
+DA:92,0
+DA:94,0
+DA:96,0
+DA:98,0
+DA:99,0
+DA:100,0
+DA:101,0
+DA:102,0
+DA:105,0
+DA:106,0
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:115,0
+DA:117,0
+DA:118,0
+DA:119,0
+DA:120,0
+DA:122,0
+DA:123,0
+DA:124,0
+DA:125,0
+DA:127,0
+DA:128,0
+DA:130,0
+DA:131,0
+BRDA:117,135,0,0
+BRDA:117,135,1,0
+FN:32,System.Void Api.Claims.Startup::.ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration)
+FNDA:0,System.Void Api.Claims.Startup::.ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration)
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+LF:68
+LH:0
+BRF:2
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:c:\Users\adesfontaines\source\private\api-claims-assignement\api\Models\Claim.cs
+FN:20,System.Int32 Api.Claims.Models.Claim::get_Id()
+FNDA:9,System.Int32 Api.Claims.Models.Claim::get_Id()
+DA:21,9
+FN:28,System.String Api.Claims.Models.Claim::get_Name()
+FNDA:4,System.String Api.Claims.Models.Claim::get_Name()
+DA:29,4
+FN:36,System.Nullable`1<System.Boolean> Api.Claims.Models.Claim::get_Verified()
+FNDA:4,System.Nullable`1<System.Boolean> Api.Claims.Models.Claim::get_Verified()
+DA:37,4
+FN:43,System.String Api.Claims.Models.Claim::ToString()
+FNDA:0,System.String Api.Claims.Models.Claim::ToString()
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+FN:58,System.String Api.Claims.Models.Claim::ToJson()
+FNDA:0,System.String Api.Claims.Models.Claim::ToJson()
+DA:59,0
+DA:60,0
+DA:61,0
+FN:68,System.Boolean Api.Claims.Models.Claim::Equals(System.Object)
+FNDA:0,System.Boolean Api.Claims.Models.Claim::Equals(System.Object)
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+BRDA:70,7,0,0
+BRDA:70,7,1,0
+BRDA:71,19,0,0
+BRDA:71,19,1,0
+BRDA:72,42,0,0
+BRDA:72,42,1,0
+FN:80,System.Boolean Api.Claims.Models.Claim::Equals(Api.Claims.Models.Claim)
+FNDA:0,System.Boolean Api.Claims.Models.Claim::Equals(Api.Claims.Models.Claim)
+DA:81,0
+DA:82,0
+DA:83,0
+DA:85,0
+DA:86,0
+DA:87,0
+DA:88,0
+DA:89,0
+DA:90,0
+DA:91,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+DA:96,0
+DA:97,0
+DA:98,0
+DA:99,0
+DA:100,0
+BRDA:82,7,0,0
+BRDA:82,7,1,0
+BRDA:83,22,0,0
+BRDA:83,22,1,0
+BRDA:85,43,0,0
+BRDA:85,43,1,0
+BRDA:85,65,0,0
+BRDA:85,87,0,0
+BRDA:85,95,0,0
+BRDA:85,87,1,0
+BRDA:85,114,0,0
+BRDA:85,165,0,0
+BRDA:85,182,0,0
+BRDA:85,182,1,0
+BRDA:85,165,1,0
+BRDA:85,65,1,0
+BRDA:85,95,1,0
+BRDA:85,114,1,0
+FN:106,System.Int32 Api.Claims.Models.Claim::GetHashCode()
+FNDA:0,System.Int32 Api.Claims.Models.Claim::GetHashCode()
+DA:107,0
+DA:109,0
+DA:110,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:115,0
+DA:116,0
+DA:118,0
+BRDA:112,16,0,0
+BRDA:112,16,1,0
+BRDA:114,51,0,0
+BRDA:114,51,1,0
+FN:123,System.Boolean Api.Claims.Models.Claim::op_Equality(Api.Claims.Models.Claim,Api.Claims.Models.Claim)
+FNDA:0,System.Boolean Api.Claims.Models.Claim::op_Equality(Api.Claims.Models.Claim,Api.Claims.Models.Claim)
+DA:124,0
+DA:125,0
+DA:126,0
+FN:128,System.Boolean Api.Claims.Models.Claim::op_Inequality(Api.Claims.Models.Claim,Api.Claims.Models.Claim)
+FNDA:0,System.Boolean Api.Claims.Models.Claim::op_Inequality(Api.Claims.Models.Claim,Api.Claims.Models.Claim)
+DA:129,0
+DA:130,0
+DA:131,0
+LF:54
+LH:3
+BRF:28
+BRH:0
+FNF:10
+FNH:3
+end_of_record
+SF:c:\Users\adesfontaines\source\private\api-claims-assignement\api\Models\ClaimsDBContext.cs
+FN:8,Microsoft.EntityFrameworkCore.DbSet`1<Api.Claims.Models.Claim> Api.Claims.Models.ClaimsDBContext::get_Claims()
+FNDA:4,Microsoft.EntityFrameworkCore.DbSet`1<Api.Claims.Models.Claim> Api.Claims.Models.ClaimsDBContext::get_Claims()
+DA:9,4
+FN:11,System.Void Api.Claims.Models.ClaimsDBContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+FNDA:1,System.Void Api.Claims.Models.ClaimsDBContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+DA:12,1
+DA:13,1
+DA:14,1
+DA:15,1
+DA:16,1
+DA:17,1
+FN:5,System.Void Api.Claims.Models.ClaimsDBContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<Api.Claims.Models.ClaimsDBContext>)
+FNDA:1,System.Void Api.Claims.Models.ClaimsDBContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<Api.Claims.Models.ClaimsDBContext>)
+DA:6,1
+DA:7,1
+DA:8,1
+LF:10
+LH:10
+BRF:0
+BRH:0
+FNF:3
+FNH:3
+end_of_record
+SF:c:\Users\adesfontaines\source\private\api-claims-assignement\api\Models\ClaimsPostResponse.cs
+FN:9,System.Collections.Generic.List`1<Api.Claims.Models.Claim> Api.Claims.Models.ClaimsPostResponse::get_DuplicatedClaims()
+FNDA:3,System.Collections.Generic.List`1<Api.Claims.Models.Claim> Api.Claims.Models.ClaimsPostResponse::get_DuplicatedClaims()
+DA:10,3
+LF:1
+LH:1
+BRF:0
+BRH:0
+FNF:1
+FNH:1
+end_of_record
+SF:c:\Users\adesfontaines\source\private\api-claims-assignement\api\Filters\BasePathFilter.cs
+FN:25,System.String Api.Claims.Filters.BasePathFilter::get_BasePath()
+FNDA:0,System.String Api.Claims.Filters.BasePathFilter::get_BasePath()
+DA:26,0
+FN:33,System.Void Api.Claims.Filters.BasePathFilter::Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)
+FNDA:0,System.Void Api.Claims.Filters.BasePathFilter::Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)
+DA:34,0
+DA:35,0
+DA:37,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+BRDA:39,186,1,0
+BRDA:41,99,0,0
+BRDA:41,99,1,0
+BRDA:39,186,0,0
+FN:16,System.Void Api.Claims.Filters.BasePathFilter::.ctor(System.String)
+FNDA:0,System.Void Api.Claims.Filters.BasePathFilter::.ctor(System.String)
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+LF:18
+LH:0
+BRF:4
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:c:\Users\adesfontaines\source\private\api-claims-assignement\api\Controllers\ClaimsApi.cs
+FN:48,Microsoft.AspNetCore.Mvc.IActionResult Api.Claims.Controllers.ClaimsApiController::ClaimsIdGet(System.Nullable`1<System.Int32>)
+FNDA:0,Microsoft.AspNetCore.Mvc.IActionResult Api.Claims.Controllers.ClaimsApiController::ClaimsIdGet(System.Nullable`1<System.Int32>)
+DA:49,0
+DA:50,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:57,0
+DA:58,0
+BRDA:52,42,0,0
+BRDA:52,42,1,0
+FN:69,Microsoft.AspNetCore.Mvc.IActionResult Api.Claims.Controllers.ClaimsApiController::ClaimsPost(System.Collections.Generic.List`1<Api.Claims.Models.Claim>)
+FNDA:1,Microsoft.AspNetCore.Mvc.IActionResult Api.Claims.Controllers.ClaimsApiController::ClaimsPost(System.Collections.Generic.List`1<Api.Claims.Models.Claim>)
+DA:70,1
+DA:71,1
+DA:73,1
+DA:74,1
+DA:76,1
+DA:79,11
+DA:80,4
+DA:81,4
+DA:82,3
+DA:83,3
+DA:84,3
+DA:86,1
+DA:87,1
+DA:88,1
+DA:89,4
+DA:91,9
+DA:92,3
+DA:94,3
+DA:95,3
+DA:96,3
+DA:97,3
+DA:98,0
+DA:99,0
+DA:100,0
+DA:101,0
+DA:102,0
+DA:103,3
+DA:105,1
+DA:106,1
+DA:107,1
+DA:108,1
+DA:110,1
+DA:111,1
+BRDA:79,128,1,4
+BRDA:81,94,0,3
+BRDA:81,94,1,1
+BRDA:79,128,0,1
+BRDA:91,276,1,3
+BRDA:91,276,0,1
+FN:30,System.Void Api.Claims.Controllers.ClaimsApiController::.ctor(Api.Claims.Models.ClaimsDBContext,Microsoft.Extensions.Logging.ILogger`1<Api.Claims.Controllers.ClaimsApiController>)
+FNDA:1,System.Void Api.Claims.Controllers.ClaimsApiController::.ctor(Api.Claims.Models.ClaimsDBContext,Microsoft.Extensions.Logging.ILogger`1<Api.Claims.Controllers.ClaimsApiController>)
+DA:31,1
+DA:32,1
+DA:33,1
+DA:34,1
+DA:35,1
+FN:22,System.Void Api.Claims.Controllers.ClaimsApiController::.cctor()
+FNDA:1,System.Void Api.Claims.Controllers.ClaimsApiController::.cctor()
+DA:23,1
+DA:24,1
+DA:25,1
+DA:26,1
+DA:27,1
+DA:28,1
+DA:29,1
+LF:52
+LH:40
+BRF:8
+BRH:6
+FNF:4
+FNH:3
+end_of_record

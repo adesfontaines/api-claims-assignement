@@ -133,3 +133,4 @@ $RECYCLE.BIN/
 _NCrunch*
 
 api/.env
+tests/TestResults.xml

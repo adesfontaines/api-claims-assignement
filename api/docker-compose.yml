@@ -48,7 +48,7 @@ services:
     depends_on:
       - prometheus
     volumes:
-      -prometheus:/prometheus
+      - prometheus:/prometheus
 
 volumes:
   pgdata:
