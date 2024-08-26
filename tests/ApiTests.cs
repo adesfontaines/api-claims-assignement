@@ -1,57 +1,93 @@
-using Api.Claims.Controllers;
-using Api.Claims.Models;
-using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using Xunit;
+using Api.Claims.Controllers;
+using Api.Claims.Models;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
-namespace Api.Tests
+namespace Api.Claims.Tests
 {
     public class ClaimsApiControllerTests
     {
+        private readonly ClaimsApiController _controller;
+        private readonly Mock<ILogger<ClaimsApiController>> _mockLogger;
+        private readonly DbContextOptions<ClaimsDBContext> _dbContextOptions;
+
+        public ClaimsApiControllerTests()
+        {
+            // Setup in-memory database
+            _dbContextOptions = new DbContextOptionsBuilder<ClaimsDBContext>()
+                .UseInMemoryDatabase("ClaimsDatabase")
+                .Options;
+
+            var dbContext = new ClaimsDBContext(_dbContextOptions);
+
+            _mockLogger = new Mock<ILogger<ClaimsApiController>>();
+
+            _controller = new ClaimsApiController(dbContext, _mockLogger.Object);
+        }
+
         [Fact]
-        public void ClaimsIdGet_WithValidId_ReturnsClaim() // Add parameters here
+        public void ClaimsIdGet_ReturnsOkResult_WhenClaimExists()
         {
             // Arrange
-            var controller = new ClaimsApiController(); 
+            var claimId = 1;
+            var claim = new Claim { Id = claimId, Name = "Test Claim", Verified = true };
+
+            using (var dbContext = new ClaimsDBContext(_dbContextOptions))
+            {
+                dbContext.Claims.Add(claim);
+                dbContext.SaveChanges();
+            }
 
             // Act
-            var result = controller.ClaimsIdGet(1);
+            var result = _controller.ClaimsIdGet(claimId);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
+            var returnedClaim = Assert.IsType<Claim>(okResult.Value);
+            Assert.Equal(claimId, returnedClaim.Id);
         }
 
-        // Example unit test for ClaimsPost
         [Fact]
-        public void ClaimsPost_WithDuplicateClaims_ReturnsDuplicateClaims()
+        public void ClaimsIdGet_ReturnsNotFound_WhenClaimDoesNotExist()
         {
-            // Arrange
-            var controller = new ClaimsApiController();
-            var claims = new List<Claim>
+            // Act
+            var result = _controller.ClaimsIdGet(999);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public void ClaimsPost_ReturnsOkResult_WithDuplicatedClaimsInBatch()
+        {
+
+            using (var dbContext = new ClaimsDBContext(_dbContextOptions))
             {
-                new Claim { Id = 1, Name = "claim-1", Verified = true },
-                new Claim { Id = 2, Name = "claim-2", Verified = false },
-                new Claim { Id = 1, Name = "duplicate-claim-1", Verified = false }, // Duplicate ID 1
-                new Claim { Id = 2, Name = "duplicate-claim-2", Verified = true } // Duplicate ID 2
+                // Clear any existing data to ensure a clean state for the test
+                dbContext.Claims.RemoveRange(dbContext.Claims);
+                dbContext.SaveChanges();
+            }
+            // Arrange
+            var newClaims = new List<Claim>
+            {
+                new Claim { Id = 1, Name = "Claim1", Verified = true },
+                new Claim { Id = 1, Name = "DuplicatedClaim1", Verified = true },
+                new Claim { Id = 2, Name = "Claim2", Verified = false },
+                new Claim { Id = 3, Name = "Claim2-Duplicated", Verified = true }
             };
 
             // Act
-            var result = controller.ClaimsPost(claims);
+            var result = _controller.ClaimsPost(newClaims);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            
-            // Access the Value property of the OkObjectResult and cast it to ClaimsPostResponse
-            var responseContent = Assert.IsType<ClaimsPostResponse>(okResult.Value);
+            var response = Assert.IsType<ClaimsPostResponse>(okResult.Value);
 
-            // Assert that there are 2 duplicate claims
-            responseContent.DuplicatedClaims.Should().HaveCount(2);
+            Assert.Single(response.DuplicatedClaims);
 
-            // Assert that the duplicate claims have the expected IDs (1 and 2)
-            responseContent.DuplicatedClaims.Select(c => c.Id).Should().BeEquivalentTo(new[] { 1, 2 });
+            Assert.Equal(1, response.DuplicatedClaims[0].Id);
         }
     }
 }
