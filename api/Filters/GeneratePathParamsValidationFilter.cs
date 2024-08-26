@@ -5,7 +5,6 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Diagnostics.CodeAnalysis;
 
-
 namespace Api.Claims.Filters
 {
     /// <summary>
