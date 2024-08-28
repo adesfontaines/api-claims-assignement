@@ -24,4 +24,4 @@ cd insurance-claim-api
 docker-compose up --build
 ```
 
-The API will be accessible at http://localhost:5000.
+The API will be accessible at http://localhost:80
