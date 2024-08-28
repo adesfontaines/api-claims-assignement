@@ -1,6 +1,6 @@
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/adesfontaines/api-claims-assignement/main.yml)](https://github.com/adesfontaines/api-claims-assignement/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/adesfontaines/api-claims-assignement/e2e.yml)](https://github.com/adesfontaines/api-claims-assignement/actions)
 [![codecov](https://codecov.io/github/adesfontaines/api-claims-assignement/graph/badge.svg?token=HNEOXUZ0ZK)](https://codecov.io/github/adesfontaines/api-claims-assignement)
-# Insurance Claim Batch API
+# Insurance Claim API
 
 This API allows for retrieving and updating batches of insurance claims. It is containerized using Docker Compose for easy deployment.
 
